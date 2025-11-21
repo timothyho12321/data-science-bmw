@@ -82,7 +82,8 @@ def generate_sample_data(num_months: int = 24, output_path: Path = None) -> pd.D
 
 if __name__ == "__main__":
     # Generate sample data
-    output_path = Path(__file__).parent.parent.parent / "data" / "raw" / "bmw_sales_data.csv"
+    # Use resolve() and parents for more robust path handling
+    output_path = Path(__file__).resolve().parents[2] / "data" / "raw" / "bmw_sales_data.csv"
     df = generate_sample_data(24, output_path)
     
     print("\nData Summary:")

@@ -269,13 +269,14 @@ Charts and detailed tables available in supporting documentation
         """
         try:
             # Import OpenAI library
-            import openai
-            
-            openai.api_key = self.api_key
+            from openai import OpenAI
             
             logger.info(f"Calling OpenAI API with model {self.config.LLM_MODEL}")
             
-            response = openai.ChatCompletion.create(
+            # Create OpenAI client with API key
+            client = OpenAI(api_key=self.api_key)
+            
+            response = client.chat.completions.create(
                 model=self.config.LLM_MODEL,
                 messages=[
                     {"role": "system", "content": "You are a senior business analyst specializing in automotive sales."},

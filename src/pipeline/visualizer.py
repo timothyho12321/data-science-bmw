@@ -53,7 +53,8 @@ class Visualizer:
         
         # Monthly sales trend
         fig, ax = plt.subplots(figsize=(14, 6))
-        monthly_data['period'] = monthly_data['year'].astype(str) + '-' + monthly_data['month'].astype(str).str.zfill(2)
+        # Create period labels more efficiently
+        periods = monthly_data['year'].astype(str) + '-' + monthly_data['month'].astype(str).str.zfill(2)
         ax.plot(range(len(monthly_data)), monthly_data[self.config.SALES_COLUMN], 
                 marker='o', linewidth=2, markersize=4)
         ax.set_xlabel('Time Period')
@@ -61,7 +62,7 @@ class Visualizer:
         ax.set_title('BMW Monthly Sales Trend', fontsize=14, fontweight='bold')
         ax.grid(True, alpha=0.3)
         plt.xticks(range(0, len(monthly_data), max(1, len(monthly_data)//10)), 
-                   monthly_data['period'].iloc[::max(1, len(monthly_data)//10)], 
+                   periods.iloc[::max(1, len(monthly_data)//10)], 
                    rotation=45)
         plt.tight_layout()
         
